@@ -1,12 +1,24 @@
-Day3 Network Engineer
+Day3 Network Engineer:job interview question for L1/L2 NOC-MSP position
 3.1 Interpret the components of routing table
-3.1.a Routing protocol code
-3.1.b Prefix
-3.1.c Network mask
-3.1.d Next hop
-3.1.e Administrative distance
-3.1.f Metric
-3.1.g Gateway of last resort
+a routing is  database/fib:forward information base that is used by routing devices path to take
+to go to remote networks
+linux:netstat -rn
+windows:route print
+cisco:show ip route
+
+3.1.a Routing protocol code exclusive on cisco juniper fortinet palo alto
+3.1.b Prefix:a network prefix is a network route
+3.1.c Network mask:network mask
+the ip address of a pc is 192.168.10.101/27 what is the networkaddress;0,32,64,96[network address]
+the ip address of a pc is 192.168.10.55/28 what is the networkaddress;0,16,32,48,[network address]
+the ip address of a pc is 192.168.10.42/29 what is the networkaddress;0,16,32,40,[network address]
+3.1.d Next hop is the ip address of an ingress route
+3.1.e Administrative distance administrative distance
+bgp = 20e,200i,rip= 120 eigrp =90, ospf =110,isis = 115 ,static route = 1
+3.1.f Metric used in routing for cost and distance "how much"
+spf bandwith, rip -=hopcount eigrp =bw+delay
+3.1.g Gateway of last resort default gateway is a catch all route for unknown networks
+parang gmg google mo gago
 
 3.2 Determine how a router makes a forwarding decision by default
 3.2.a Longest prefix match
@@ -33,6 +45,18 @@ config t
  no router ospf 1
  do sh ip protocols
 ###### give IP address/pri/secondary default GW to S1 and S2:
+
+
+
+
+
+
+
+
+
+
+
+
 @@S1
 config t
 int e1/0
@@ -111,10 +135,10 @@ config t
 int e0/0
  ip add 10.2.1.101 255.255.255.0
  no shut
-P1: Creating Floating STATIC routes on p1 for vlan 200 and vlan 20:
+P1: Creating STATIC routes using longest prefix on p1 for vlan 200 and vlan 20:
 config t
 ip route  192.168.1.128 255.255.255.224 10.2.1.1 1
-ip route  192.168.1.130 255.255.255.255 10.2.1.2 10
+ip route  192.168.1.130 255.255.255.255 10.2.1.2 
 ! /32 is better than /27: longest prefix Rule.
 do sh ip route static
 p2:
