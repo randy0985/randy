@@ -59,13 +59,16 @@ ip add 192.168.102.11 255.255.255.0
 config t
 IP ROUTE 0.0.0.0  0.0.0.0 208.8.8.2
 ip name-server 8.8.8.8 1.1.1.1
-ip domain-lookup
+ip domain lookup
 int gi 1
 no shut
 ip add 208.8.8.11 255.255.255.0
 int gi 3
 no shut
 ip add 192.168.103.11 255.255.255.0
+line vty 0 14
+transport input all
+exec-timeout 0 0
 do sh ip int brief
 
 ALL THE PORN SITES THE WORLD ARE OWNED BY 5 COMPANIES:
@@ -120,14 +123,14 @@ ping  www.yourschool.edu.ph = _________
 config t
 NO ip access-list standard NOISKUL
 ip access-list standard NOISKUL
-DENY   __.__.__.__   0.0.255.255
-DENY   __.__.__.__   0.0.255.255
-DENY   __.__.__.__   0.0.255.255
-DENY   __.__.__.__   0.0.255.255
-DENY   __.__.__.__   0.0.255.255
+DENY   192.0.0.0   0.0.255.255
+DENY   20.212.0.0    0.0.255.255
+DENY   115.137.0.0    0.0.255.255
+DENY   216.218.0.0    0.0.255.255
+DENY   4.194.0.0    0.0.255.255
 Permit Any
 Int Gi 1
- ip access-group NOISKUL in
+no ip access-group NOISKUL in
 end
 YOUR COMPANY IS HAS VERY LOW INTERNET SPEED, BEC OF TORRENTS:
 www.thepiratebay.org
@@ -140,11 +143,11 @@ www.iptorrents.com
 config t
 NO ip access-list standard NOTORS
 ip access-list standard NOTORS
-DENY   __.__.__.__   0.0.255.255
-DENY   __.__.__.__   0.0.255.255
-DENY   __.__.__.__   0.0.255.255
-DENY   __.__.__.__   0.0.255.255
-DENY   __.__.__.__   0.0.255.255
+DENY   162.159.0.0   0.0.255.255
+DENY   172.67.0.0   0.0.255.255
+DENY   76.223.0.0   0.0.255.255
+DENY   104.21.0.0   0.0.255.255
+DENY   104.21.0.0   0.0.255.255
 Permit Any
 Int Gi 1
  ip access-group NOTORS in
@@ -154,16 +157,16 @@ TASK2: USE STANDARD ACCESS-LIST TO BLOCK OTHER CONTRIES/CLASSMATE:
 config t
 NO ip access-list standard NOCLASSMATE1
 ip access-list standard NOCLASSMATE1
-DENY 10.11.0.0 0.0.255.255
-DENY 10.21.0.0 0.0.255.255
-DENY 10.31.0.0 0.0.255.255
-DENY 10.41.0.0 0.0.255.255
-DENY 10.51.0.0 0.0.255.255
-DENY 10.61.0.0 0.0.255.255
-Deny 10.71.0.0 0.0.255.255
+DENY 10.12.0.0 0.0.255.255
+DENY 10.22.0.0 0.0.255.255
+DENY 10.32.0.0 0.0.255.255
+DENY 10.42.0.0 0.0.255.255
+DENY 10.52.0.0 0.0.255.255
+DENY 10.62.0.0 0.0.255.255
+Deny 10.72.0.0 0.0.255.255
 Permit Any
 Int Gi 0/0/1
- ip access-group NOCLASSMATE1 in
+no ip access-group NOCLASSMATE1 in
  end
 
 TASK3: When you become a Security Analyst:
@@ -312,7 +315,7 @@ tcp,udp,icmp,IP     Any      web310/11
 Config t
 service timestamps log datetime
 service timestamps debug datetime
-logging 10.m.1.10
+logging 10.31.1.10
 logging trap 5
 NO IP access-list Extended FWP1
 IP access-list Extended FWP1
@@ -553,21 +556,23 @@ icmp 192.168.108.88:57096  192.168.103.12:57096  8.8.8.8:57096         8.8.8.8:5
 icmp 192.168.108.88:56584  192.168.103.12:56584  8.8.4.4:56584         8.8.4.4:56584
 Total number of translations: 7
 
-CREATING A WEB PROXY OR HIDING BEHIND NAT:
+CREATING A WEB PROXY OR HIDING BEHIND NAT: 208.8.8.101/
 www.sti.edu.ph:      vs     www.dlsu.edu.ph:
 @EDGE:
 config t
 no access-list 8
 access-list 8 permit any
+no ip nat inside source static 192.168.103.21 208.8.8.51
+no ip nat inside source static 192.168.103.22 208.8.8.52
 Int Gi 3
  ip nat Inside
 Int gi 1
  ip nat Outside
 IP Nat inside source static tcp 192.168.103.21 80 208.8.8.101 8080
-IP Nat inside source static tcp 192.168.103.21 22 208.8.8.101 8443
+no  IP Nat inside source static tcp 192.168.103.21 22 208.8.8.101 8443
 IP Nat inside source static tcp 192.168.103.22 80 208.8.8.102 8080
 IP Nat inside source static tcp 192.168.103.22 22 208.8.8.102 8443
-IP nat inside source list 8 int gi 1 Overload
+!IP nat inside source list 8 int gi 1 Overload
 end
 show ip nat translation
 
